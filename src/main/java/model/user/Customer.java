@@ -6,6 +6,7 @@ import model.order.Order;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,12 +17,12 @@ import java.util.List;
 public class Customer extends User{
     //reviews
     @DBRef
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     @DBRef
-    private List<Restaurant> favourites;
+    private List<Restaurant> favourites = new ArrayList<>();
 
     @DBRef
-    private List<Restaurant> restaurantsSubscribed;
+    private List<Restaurant> restaurantsSubscribed = new ArrayList<>();
 
 }
