@@ -1,8 +1,8 @@
-package model.order;
+package com.mb.DineEase.model.order;
 
-import model.Dish;
-import model.Restaurant;
-import model.user.Customer;
+import com.mb.DineEase.model.Restaurant;
+import com.mb.DineEase.model.Dish;
+import com.mb.DineEase.model.user.Customer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

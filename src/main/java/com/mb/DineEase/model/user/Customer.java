@@ -1,8 +1,8 @@
-package model.user;
+package com.mb.DineEase.model.user;
 
+import com.mb.DineEase.model.Restaurant;
+import com.mb.DineEase.model.order.Order;
 import lombok.*;
-import model.Restaurant;
-import model.order.Order;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,11 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Document(collection = "users")
 public class Customer extends User{
+    private String role;
+    public Customer(){
+        super();
+        role = "CUSTOMER";
+    }
+
     //reviews
     @DBRef
     private List<Order> orders = new ArrayList<>();

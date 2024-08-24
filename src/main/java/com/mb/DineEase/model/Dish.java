@@ -1,4 +1,4 @@
-package model;
+package com.mb.DineEase.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package model;
+package com.mb.DineEase.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
