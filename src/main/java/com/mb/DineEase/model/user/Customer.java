@@ -14,10 +14,9 @@ import java.util.List;
 @Setter
 @Document(collection = "users")
 public class Customer extends User{
-    private String role;
     public Customer(){
         super();
-        role = "CUSTOMER";
+        this.setRole("CUSTOMER");
     }
 
     //reviews
@@ -29,5 +28,4 @@ public class Customer extends User{
 
     @DBRef
     private List<Restaurant> restaurantsSubscribed = new ArrayList<>();
-
 }

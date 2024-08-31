@@ -19,6 +19,7 @@ public abstract class User {
     private String password;
     private long phone;
     private List<Address> addresses;
+    private String role;
 
     public User(String name, String email, String password, long phone, List<Address> addresses) {
         this.name = name;
@@ -26,5 +27,9 @@ public abstract class User {
         this.password = password;
         this.phone = phone;
         this.addresses = addresses;
+    }
+
+    protected void setRole(String role){
+        this.role = role;
     }
 }
