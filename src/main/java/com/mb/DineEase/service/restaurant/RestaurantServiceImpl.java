@@ -1,9 +1,12 @@
 package com.mb.DineEase.service.restaurant;
 
-import com.mb.DineEase.model.Restaurant;
+import com.mb.DineEase.constants.ApplicationConstants;
+import com.mb.DineEase.model.restaurant.Restaurant;
 import com.mb.DineEase.model.user.RestaurantManager;
 import com.mb.DineEase.request.restaurant.CreateRestaurantRequest;
 import com.mb.DineEase.respository.restaurant.RestaurantRepository;
+import com.mb.DineEase.restaurant.observable.RestaurantAvailabilityObservable;
+import com.mb.DineEase.restaurant.observer.ObserverInterface;
 import com.mb.DineEase.service.user.UserService;
 import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import java.util.NoSuchElementException;
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
 
+    private static RestaurantAvailabilityObservable restaurantAvailabilityObservable = new RestaurantAvailabilityObservable();
+
     @Autowired
     private RestaurantRepository restaurantRepository;
 
@@ -23,9 +28,12 @@ public class RestaurantServiceImpl implements RestaurantService{
     private UserService userService;
 
     @Override
-    public Restaurant createRestaurant(CreateRestaurantRequest request, String restaurantManagerId) throws NoSuchElementException {
+    public Restaurant createRestaurant(CreateRestaurantRequest request) throws NoSuchElementException {
         try{
-            RestaurantManager restaurantManager = (RestaurantManager)userService.getRestaurantManagerById(restaurantManagerId);
+            RestaurantManager restaurantManager = (RestaurantManager)userService.getRestaurantManagerById(request.getRestaurantManagerId());
+            if(!restaurantManager.getRole().equals(ApplicationConstants.RESTAURANT_MANAGER)){
+                throw new RuntimeException("Only restaurant manager can create a restaurant.");
+            }
             Restaurant restaurant = new Restaurant();
             restaurant.setName(request.getName());
             restaurant.setAddress(request.getAddress());
@@ -46,8 +54,11 @@ public class RestaurantServiceImpl implements RestaurantService{
             GeoJsonPoint location = new GeoJsonPoint(request.getLocation().getLongitude(), request.getLocation().getLatitude());
             restaurant.setLocation(location);
             return restaurantRepository.save(restaurant);
-        } catch (Exception e){
+        } catch (MongoException e){
             throw new MongoException("Error while creating restaurant");
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -92,7 +103,6 @@ public class RestaurantServiceImpl implements RestaurantService{
         }
     }
 
-
     @Override
     public List<Restaurant> getRestaurantByName(String name) {
         return restaurantRepository.findRestaurantsByName(name);
@@ -109,8 +119,14 @@ public class RestaurantServiceImpl implements RestaurantService{
             Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
             restaurant.setOpened(isOpened);
             restaurantRepository.save(restaurant);
-        } catch (Exception e){
-            throw new MongoException("Error while updating restaurant status");
+            restaurantAvailabilityObservable.setRestaurantAvailability(restaurantId, isOpened);
+        } catch (Exception e) {
+
         }
+    }
+
+    @Override
+    public void addRestaurantObserver(String restaurantId, ObserverInterface observerInterface){
+        restaurantAvailabilityObservable.addObserver(restaurantId, observerInterface);
     }
 }

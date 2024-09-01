@@ -1,4 +1,4 @@
-package com.mb.DineEase.model;
+package com.mb.DineEase.model.address;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location {
-    private double latitude;
-    private double longitude;
+public class Address {
+    private String street;
+    private String city;
+    private int pincode;
 }

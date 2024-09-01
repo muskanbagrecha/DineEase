@@ -1,7 +1,7 @@
 package com.mb.DineEase.model.user;
 
 import com.mb.DineEase.constants.ApplicationConstants;
-import com.mb.DineEase.model.Restaurant;
+import com.mb.DineEase.model.restaurant.Restaurant;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.DBRef;

@@ -1,6 +1,10 @@
-package com.mb.DineEase.model;
+package com.mb.DineEase.model.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mb.DineEase.model.address.Address;
+import com.mb.DineEase.model.ContactInformation;
+import com.mb.DineEase.model.menu.Dish;
+import com.mb.DineEase.model.Review;
 import lombok.Data;
 import com.mb.DineEase.model.order.Order;
 import com.mb.DineEase.model.user.RestaurantManager;
@@ -12,7 +16,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data

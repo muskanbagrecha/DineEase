@@ -47,34 +47,35 @@ public class AuthController {
         String password = (String) userMap.get("password");
         String role = (String) userMap.get("role");
 
-        User userExists = userRepository.findUserByEmail(email).orElse(null);
-        if (userExists != null) {
+        User user;
+        user = userRepository.findUserByEmail(email).orElse(null);
+        if (user != null) {
             return ResponseEntity.badRequest().body("User with this email already exists");
         }
 
         String encodedPassword = passwordEncoder.encode(password);
 
         try {
-            User user = userFactory.createUser(role, email, encodedPassword);
+            user = userFactory.createUser(role, email, encodedPassword);
             userRepository.save(user);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         String token = jwtUtil.generateToken(userDetails);
-        AuthResponse authResponse = new AuthResponse(token, "Registered successfully", role);
+        AuthResponse authResponse = new AuthResponse(token, user.getId(), "Registered successfully", role);
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         }
         catch (AuthenticationException e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         String token = jwtUtil.generateToken(userDetails);

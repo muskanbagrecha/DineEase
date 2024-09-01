@@ -1,7 +1,7 @@
 package com.mb.DineEase.model.order;
 
-import com.mb.DineEase.model.Restaurant;
-import com.mb.DineEase.model.Dish;
+import com.mb.DineEase.model.restaurant.Restaurant;
+import com.mb.DineEase.model.menu.Dish;
 import com.mb.DineEase.model.user.Customer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;

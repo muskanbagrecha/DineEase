@@ -1,6 +1,6 @@
 package com.mb.DineEase.respository.restaurant;
 
-import com.mb.DineEase.model.Restaurant;
+import com.mb.DineEase.model.restaurant.Restaurant;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

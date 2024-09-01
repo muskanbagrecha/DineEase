@@ -1,13 +1,12 @@
 package com.mb.DineEase.request.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.mb.DineEase.model.Address;
+import com.mb.DineEase.model.address.Address;
 import com.mb.DineEase.model.ContactInformation;
-import com.mb.DineEase.model.Location;
-import lombok.AllArgsConstructor;
+import com.mb.DineEase.model.address.Location;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -28,5 +27,7 @@ public class CreateRestaurantRequest {
     private ContactInformation contactInformation;
     @NotNull
     private Location location;
+    @NotNull
+    private String restaurantManagerId;
 
 }

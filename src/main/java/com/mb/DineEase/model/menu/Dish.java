@@ -1,6 +1,7 @@
-package com.mb.DineEase.model;
+package com.mb.DineEase.model.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mb.DineEase.model.restaurant.Restaurant;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.DBRef;

@@ -1,6 +1,6 @@
 package com.mb.DineEase.model.cart;
 
-import com.mb.DineEase.model.Dish;
+import com.mb.DineEase.model.menu.Dish;
 
 public class CartItem {
 //    private String id;

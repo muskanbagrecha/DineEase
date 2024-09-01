@@ -2,10 +2,11 @@ package com.mb.DineEase.model.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mb.DineEase.model.Address;
+import com.mb.DineEase.model.address.Address;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Document(collection = "users")
@@ -20,6 +21,7 @@ public abstract class User {
     private long phone;
     private List<Address> addresses;
     private String role;
+    private HashSet<String> notificationStrategies;
 
     public User(String name, String email, String password, long phone, List<Address> addresses) {
         this.name = name;

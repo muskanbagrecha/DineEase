@@ -37,7 +37,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()) //disable as APIs will be stateless
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/api/admin/**").hasRole(ApplicationConstants.RESTAURANT_MANAGER)
+                        authorize.requestMatchers("/api/restaurant/**").hasRole(ApplicationConstants.RESTAURANT_MANAGER)
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().permitAll()) //for login and signup endpoint

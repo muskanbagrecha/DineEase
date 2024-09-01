@@ -5,12 +5,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
@@ -19,7 +21,7 @@ public class JwtUtil {
     private String secret_key;
 
     // Extract all claims from JWT token
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(secret_key).build().parseClaimsJws(token).getBody();
     }
 
@@ -43,14 +45,15 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return createToken(userDetails.getUsername());
+        return createToken(userDetails.getUsername(), userDetails.getAuthorities());
     }
 
     // Create a token with subject and expiration date
-    private String createToken(String subject) {
+    private String createToken(String subject, Collection<? extends GrantedAuthority> authorities) {
         SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret_key));
         return Jwts.builder()
                 .setSubject(subject)
+                .claim("roles", authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))  // 10 hours validity
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -58,11 +61,16 @@ public class JwtUtil {
     }
 
     // Validate the JWT token
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        Claims claims = extractAllClaims(token);
+    public boolean validateToken(Claims claims, UserDetails userDetails) {
         final String username = extractUsername(claims);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(claims));
     }
 
+    public List<GrantedAuthority> getAuthoritiesFromToken(Claims claims) {
+        List<LinkedHashMap<String, String>> roles = (List<LinkedHashMap<String, String>>) claims.get("roles");
+        return roles.stream()
+                .map(roleMap -> new SimpleGrantedAuthority("ROLE_" + roleMap.get("authority")))
+                .collect(Collectors.toList());
+    }
 
 }
