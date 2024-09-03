@@ -37,7 +37,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()) //disable as APIs will be stateless
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/api/restaurant/**").hasRole(ApplicationConstants.RESTAURANT_MANAGER)
+                        authorize.requestMatchers("/api/restaurant/search/**").permitAll()
+                                .requestMatchers("/api/restaurant/**").hasRole(ApplicationConstants.RESTAURANT_MANAGER)
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().permitAll()) //for login and signup endpoint
@@ -58,6 +59,7 @@ public class SecurityConfig {
                 CorsConfiguration corsConfiguration = new CorsConfiguration();
                 corsConfiguration.addAllowedOrigin("http://localhost:8081");
                 corsConfiguration.addAllowedOrigin("http://localhost:3000");
+                corsConfiguration.addAllowedOrigin("https://ml53hmn9-53612.inc1.devtunnels.ms/");
                 corsConfiguration.setAllowedMethods(List.of("*"));
                 corsConfiguration.setAllowedHeaders(List.of("*"));
                 corsConfiguration.setAllowCredentials(true);

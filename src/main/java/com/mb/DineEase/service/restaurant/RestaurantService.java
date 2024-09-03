@@ -10,7 +10,7 @@ public interface RestaurantService {
     Restaurant createRestaurant(CreateRestaurantRequest request);
     Restaurant getRestaurantById(String id);
     Restaurant updateRestaurant(String id, CreateRestaurantRequest newRequest);
-    List<Restaurant> getRestaurantByName(String name);
+    List<Restaurant> findRestaurantByKeyword(String keyword);
     List<Restaurant> findRestaurantsWithinRadius(Double latitude, Double longitude, Double radius);
     void updateRestaurantStatus(String restaurantId, boolean isOpened);
     void addRestaurantObserver(String restaurantId, ObserverInterface observerInterface);

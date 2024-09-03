@@ -41,6 +41,11 @@ public class AuthController {
     @Autowired
     UserFactory userFactory;
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello";
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody Map<String, Object> userMap) {
         String email = (String) userMap.get("email");

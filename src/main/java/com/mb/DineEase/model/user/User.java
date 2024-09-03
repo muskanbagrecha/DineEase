@@ -1,5 +1,6 @@
 package com.mb.DineEase.model.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.mb.DineEase.model.address.Address;
@@ -12,6 +13,7 @@ import java.util.List;
 @Document(collection = "users")
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class User {
     @Id
     private String id;

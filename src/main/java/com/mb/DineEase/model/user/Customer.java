@@ -26,7 +26,7 @@ public class Customer extends User{
     private List<Order> orders = new ArrayList<>();
 
     @DBRef
-    private List<Restaurant> favourites = new ArrayList<>();
+    private Set<Restaurant> favourites = new HashSet<>();
 
     @DBRef
     private Set<Restaurant> restaurantsSubscribed = new HashSet<>();

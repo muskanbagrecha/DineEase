@@ -7,7 +7,6 @@ import com.mb.DineEase.request.restaurant.RestaurantStatusDTO;
 import com.mb.DineEase.response.restaurant.RestaurantCreationResponse;
 import com.mb.DineEase.service.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,16 +51,16 @@ public class RestaurantController {
     }
 
     @PatchMapping("/changeStatus")
-    public ResponseEntity<String> notifyObservers(@RequestBody RestaurantStatusDTO restaurantStatusDTO) {
+    public ResponseEntity<String> changeRestaurantStatus(@RequestBody RestaurantStatusDTO restaurantStatusDTO) {
         boolean restaurantStatus = restaurantStatusDTO.getIsOpened().equalsIgnoreCase("true");
         restaurantService.updateRestaurantStatus(restaurantStatusDTO.getRestaurantId(), restaurantStatus);
         return ResponseEntity.ok("Status " + restaurantStatusDTO.getIsOpened() + " updated successfully");
     }
 
-    @GetMapping("name/{name}")
-    public ResponseEntity<List<Restaurant>> getRestaurantByName(@PathVariable String name) {
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<Restaurant>> getRestaurantByKeyword(@PathVariable String keyword) {
         try{
-            return ResponseEntity.ok(restaurantService.getRestaurantByName(name));
+            return ResponseEntity.ok(restaurantService.findRestaurantByKeyword(keyword));
         }
         catch (Exception e){
             return ResponseEntity.internalServerError().build();

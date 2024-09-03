@@ -1,18 +1,24 @@
 package com.mb.DineEase.model.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mb.DineEase.model.restaurant.Restaurant;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Dish {
     @Getter
     private String id;
+    @TextIndexed
+    @NotNull
     private String name;
     private boolean isVeg;
     private int kcal;
