@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mb</groupId>
-	<artifactId>DineEase</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>dineease</artifactId>
+	<version>1.0.0</version>
 	<name>DineEase</name>
 	<description>Food delivery app</description>
 	<url/>
