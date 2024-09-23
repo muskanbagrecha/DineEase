@@ -68,7 +68,7 @@ public class AuthController {
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         String token = jwtUtil.generateToken(userDetails);
-        AuthResponse authResponse = new AuthResponse(token, user.getId(), "Registered successfully", role);
+        AuthResponse authResponse = new AuthResponse(token, "Registered successfully");
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }
 
@@ -84,7 +84,7 @@ public class AuthController {
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         String token = jwtUtil.generateToken(userDetails);
-        AuthResponse authResponse = new AuthResponse(token, "Logged in successfully", userDetails.getAuthorities().iterator().next().getAuthority());
+        AuthResponse authResponse = new AuthResponse(token, "Logged in successfully");
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 }
