@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface RestaurantService {
     Restaurant createRestaurant(CreateRestaurantRequest request);
+    List<Restaurant> getRestaurants();
     Restaurant getRestaurantById(String id);
     Restaurant updateRestaurant(String id, CreateRestaurantRequest newRequest);
     List<Restaurant> findRestaurantByKeyword(String keyword);

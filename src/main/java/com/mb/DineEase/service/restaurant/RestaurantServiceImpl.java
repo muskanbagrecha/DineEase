@@ -63,6 +63,11 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
+    public List<Restaurant> getRestaurants() {
+        return restaurantRepository.findAll();
+    }
+
+    @Override
     public Restaurant getRestaurantById(String id) {
         try{
             return restaurantRepository.findById(id).orElseThrow();

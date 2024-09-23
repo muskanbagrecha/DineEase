@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class RestaurantCreationResponse {
     private String restaurantId;
     private String restaurantName;
-    private String restaurantManagerId;
 }
