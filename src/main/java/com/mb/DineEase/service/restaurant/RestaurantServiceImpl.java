@@ -30,7 +30,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Override
     public Restaurant createRestaurant(CreateRestaurantRequest request) throws NoSuchElementException {
         try{
-            RestaurantManager restaurantManager = (RestaurantManager)userService.getRestaurantManagerById(request.getRestaurantManagerId());
+            RestaurantManager restaurantManager = (RestaurantManager)userService.getUserByEmail(request.getRestaurantManagerEmail());
+            if(restaurantManager==null){
+                throw new NoSuchElementException("Restaurant manager not found");
+            }
             if(!restaurantManager.getRole().equals(ApplicationConstants.RESTAURANT_MANAGER)){
                 throw new RuntimeException("Only restaurant manager can create a restaurant.");
             }

@@ -28,6 +28,6 @@ public class CreateRestaurantRequest {
     @NotNull
     private Location location;
     @NotNull
-    private String restaurantManagerId;
+    private String restaurantManagerEmail;
 
 }

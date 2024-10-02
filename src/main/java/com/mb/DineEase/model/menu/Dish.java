@@ -18,26 +18,26 @@ public class Dish {
     @Getter
     private String id;
     @TextIndexed
-    @NotNull
     private String name;
-    private boolean isVeg;
-    private int kcal;
+    private Boolean isVeg;
+    private Integer kcal;
     @DBRef
     @JsonIgnore
     private FoodCategory category;
     private String description;
-    private List<String> images;
-    private double price;
-    private boolean isAvailable;
-    @DBRef
-    private Restaurant restaurant;
+    private String image;
+    private Double price;
+    private Boolean isAvailable;
 
-    public Dish(String name, boolean isVeg, int kcal, String description, List<String> images, double price, boolean isAvailable, FoodCategory category) {
+    public Dish() {
+    }
+
+    public Dish(String name, boolean isVeg, int kcal, String description, String image, double price, boolean isAvailable, FoodCategory category) {
         this.name = name;
         this.isVeg = isVeg;
         this.kcal = kcal;
         this.description = description;
-        this.images = images;
+        this.image = image;
         this.price = price;
         this.isAvailable = isAvailable;
         this.category = category;

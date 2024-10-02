@@ -1,5 +1,6 @@
 package com.mb.DineEase.service.restaurant.menu;
 
+import com.mb.DineEase.exceptions.DishValidationException;
 import com.mb.DineEase.model.menu.Dish;
 import com.mb.DineEase.model.restaurant.Restaurant;
 import com.mb.DineEase.respository.restaurant.RestaurantRepository;
@@ -51,13 +52,36 @@ public class RestaurantMenuServiceImpl implements RestaurantMenuService{
     }
 
     @Override
-    public void updateDish(String restaurantId, String dishId, Dish dish) {
+    public void editDish(String restaurantId, Dish dish) {
+        String dishId = dish.getId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         List<Dish> menu = restaurant.getMenu();
-        for(Dish d: menu) {
-            if(d.getId().equals(dishId)) {
-               d = dish;
-               break;
+        for(Dish currDish : menu){
+            if(currDish.getId().equals(dishId)){
+                if(currDish.getName()!=null){
+                    currDish.setName(dish.getName());
+                }
+                if(currDish.getDescription()!=null){
+                    currDish.setDescription(dish.getDescription());
+                }
+                if(currDish.getImage()!=null){
+                    currDish.setImage(dish.getImage());
+                }
+                if(currDish.getPrice()!=null){
+                    currDish.setPrice(dish.getPrice());
+                }
+                if(currDish.getCategory()!=null){
+                    currDish.setCategory(dish.getCategory());
+                }
+                if(currDish.getIsVeg()!=null){
+                    currDish.setIsVeg(dish.getIsVeg());
+                }
+                if(currDish.getKcal()!=null){
+                    currDish.setKcal(dish.getKcal());
+                }
+                if(currDish.getIsAvailable()!=null){
+                    currDish.setIsAvailable(dish.getIsAvailable());
+                }
             }
         }
         restaurant.setMenu(menu);
@@ -77,6 +101,9 @@ public class RestaurantMenuServiceImpl implements RestaurantMenuService{
     public void addDish(String restaurantId, Dish dish) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         List<Dish> menu = restaurant.getMenu();
+        if(dish.getName()!=null){
+            throw new DishValidationException("Dish name is required");
+        }
         menu.add(dish);
         restaurant.setMenu(menu);
         restaurantRepository.save(restaurant);

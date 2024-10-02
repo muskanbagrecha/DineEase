@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Data
 @Document(collection = "restaurants")
@@ -65,4 +66,13 @@ public class Restaurant {
 
     @NotNull
     private ContactInformation contactInformation;
+
+    private Dish getDish(String dishId) {
+        for(Dish dish: menu) {
+            if(dish.getId().equals(dishId)) {
+                return dish;
+            }
+        }
+        throw new NoSuchElementException("Dish not found");
+    }
 }

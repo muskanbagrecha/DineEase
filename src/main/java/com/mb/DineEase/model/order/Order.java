@@ -22,11 +22,11 @@ public class Order {
     @DBRef
     private Restaurant restaurant;
 
-    private OrderStatus status;
-
     private double amount;
 
     private Date orderTime;
 
     private List<Dish> dishes;
+
+    private OrderStatus status;
 }

@@ -2,6 +2,7 @@ package com.mb.DineEase.controller.restaurant;
 
 import com.mb.DineEase.model.address.Location;
 import com.mb.DineEase.model.restaurant.Restaurant;
+import com.mb.DineEase.request.restaurant.RestaurantIdRequest;
 import com.mb.DineEase.service.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ public class RestaurantController {
         }
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<Restaurant> getRestaurantById(@RequestBody String id) {
+    @PostMapping("/id")
+    public ResponseEntity<Restaurant> getRestaurantById(@RequestBody RestaurantIdRequest id) {
         try{
-            return ResponseEntity.ok(restaurantService.getRestaurantById(id));
+            return ResponseEntity.ok(restaurantService.getRestaurantById(id.getId()));
         }
         catch (Exception e){
             return ResponseEntity.internalServerError().build();

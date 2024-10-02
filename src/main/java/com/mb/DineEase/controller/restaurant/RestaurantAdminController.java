@@ -28,7 +28,7 @@ public class RestaurantAdminController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Restaurant> updateRestaurant(@PathVariable String id, @RequestBody CreateRestaurantRequest restaurantRequest) {
-        try{
+        try{//TODO: only restaurant manager can update restaurant
             return ResponseEntity.ok(restaurantService.updateRestaurant(id, restaurantRequest));
         }
         catch (Exception e){
@@ -38,6 +38,7 @@ public class RestaurantAdminController {
 
     @PatchMapping("/changeStatus")
     public ResponseEntity<String> changeRestaurantStatus(@RequestBody RestaurantStatusDTO restaurantStatusDTO) {
+        //TODO: only restaurant manager can change restaurant status
         boolean restaurantStatus = restaurantStatusDTO.getIsOpened().equalsIgnoreCase("true");
         restaurantService.updateRestaurantStatus(restaurantStatusDTO.getRestaurantId(), restaurantStatus);
         return ResponseEntity.ok("Status " + restaurantStatusDTO.getIsOpened() + " updated successfully");

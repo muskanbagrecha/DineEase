@@ -11,6 +11,8 @@ RUN mvn dependency:go-offline -B
 # Step 4: Copy the source code into the container
 COPY src ./src
 
+COPY src/main/resources/application.properties /app/application.properties
+
 # Step 5: Build the application and create a JAR file
 RUN mvn clean package -DskipTests
 

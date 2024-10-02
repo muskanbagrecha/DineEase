@@ -9,7 +9,7 @@ public interface RestaurantMenuService {
     void updateMenu(String restaurantId, List<Dish> menu);
     List<Dish> getMenu(String restaurantId);
     Dish getDish(String restaurantId, String dishId);
-    void updateDish(String restaurantId, String dishId, Dish dish);
+    void editDish(String restaurantId, Dish dish);
     void deleteDish(String restaurantId, String dishId);
     void addDish(String restaurantId, Dish dish);
 }

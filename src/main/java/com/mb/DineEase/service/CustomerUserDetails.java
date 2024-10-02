@@ -2,6 +2,7 @@ package com.mb.DineEase.service;
 
 import com.mb.DineEase.model.user.User;
 import com.mb.DineEase.respository.UserRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,12 @@ public class CustomerUserDetails implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+//    public CustomerUserDetails(UserDetails userDetails, String userId) {
+//        this.userDetails = userDetails;
+//        this.userId = userId;
+//    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
